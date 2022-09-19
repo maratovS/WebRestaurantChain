@@ -1,10 +1,10 @@
 package com.example.demo.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-@Table(name = "usr")
-public class User { //todo: rename to client
+public class Client {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
@@ -12,14 +12,16 @@ public class User { //todo: rename to client
     private String password;
     private String surname;
     private String address;
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Order> myOrders;
     private Double latitude;
     private Double longitude;
     private boolean needDelivery;
 
-    public User() {
+    public Client() {
     }
 
-    public User(String userName, String password, String surname, String address, Double latitude, Double longitude, boolean needDelivery) {
+    public Client(String userName, String password, String surname, String address, Double latitude, Double longitude, boolean needDelivery) {
         this.userName = userName;
         this.password = password;
         this.surname = surname;

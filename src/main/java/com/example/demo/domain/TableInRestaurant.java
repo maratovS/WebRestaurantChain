@@ -2,6 +2,7 @@ package com.example.demo.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class TableInRestaurant {
@@ -13,6 +14,8 @@ public class TableInRestaurant {
     private Restaurant restaurantId;
     private Integer numberOfSeats;
     private boolean isBooked;
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Order> myOrders;
     private Date startOfBookingTime;
     private Date endOfBookingTime;
 

@@ -15,6 +15,8 @@ public class Restaurant {
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Employee> staff;
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Order> orders;
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<TableInRestaurant> tables;
     private Double latitude;
     private Double longitude;
