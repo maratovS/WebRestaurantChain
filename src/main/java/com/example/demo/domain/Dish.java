@@ -1,17 +1,15 @@
 package com.example.demo.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Entity
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 public class Dish {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
