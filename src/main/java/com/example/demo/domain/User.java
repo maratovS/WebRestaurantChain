@@ -18,6 +18,7 @@ public class User {
     private Long id;
     private String surname;
     private String name;
+    @Column(unique = true)
     private long telephone;
     private String password;
     private String address;
@@ -31,6 +32,6 @@ public class User {
     private Restaurant placeOfWork;
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
-    private Role speciality;
+    private Role role;
     private boolean isWorking;
 }
