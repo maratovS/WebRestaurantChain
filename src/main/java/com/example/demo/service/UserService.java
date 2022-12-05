@@ -5,4 +5,5 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {
     User getUser(String username);
+    User addUser(User user);
 }

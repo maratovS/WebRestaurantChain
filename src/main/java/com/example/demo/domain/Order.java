@@ -21,6 +21,7 @@ public class Order { //todo: add relations
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usr_id")
     private User user;
+    private boolean needDelivery;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "unrepresentable_id")
     private TableInRestaurant seatNumber;

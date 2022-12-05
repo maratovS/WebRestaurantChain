@@ -14,6 +14,6 @@ import java.util.Set;
 public class Role {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private long id;
+    private Long id;
     private String roleName;
 }

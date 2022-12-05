@@ -26,11 +26,10 @@ public class User {
     private Set<Order> myOrders;
     private Double latitude;
     private Double longitude;
-    private boolean needDelivery;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id")
     private Restaurant placeOfWork;
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
     private boolean isWorking;
