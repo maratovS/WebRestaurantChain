@@ -46,6 +46,8 @@ public class WebRestaurantChainApplication {
 						"Хокку",
 						"Московское шоссе, 36А",
 						"Японская кухня",
+						"",
+						null,
 						null,
 						null,
 						null,

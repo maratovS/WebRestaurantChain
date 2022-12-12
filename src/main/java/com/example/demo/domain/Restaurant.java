@@ -18,12 +18,15 @@ public class Restaurant {
     private String restaurantName;
     private String address;
     private String kitchenSpeciality;
+    private String wallpaperURL;
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<User> staff;
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Order> orders;
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<TableInRestaurant> tables;
+    @OneToOne
+    private Menu menu;
     private Double latitude;
     private Double longitude;
 }

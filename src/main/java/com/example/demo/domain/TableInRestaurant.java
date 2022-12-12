@@ -24,5 +24,4 @@ public class TableInRestaurant {
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Order> myOrders;
     private Date startOfBookingTime;
-    private Date endOfBookingTime;
 }

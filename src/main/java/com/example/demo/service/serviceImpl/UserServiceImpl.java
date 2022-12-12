@@ -1,6 +1,8 @@
 package com.example.demo.service.serviceImpl;
 
+import com.example.demo.domain.Role;
 import com.example.demo.domain.User;
+import com.example.demo.repo.RoleRepo;
 import com.example.demo.repo.UserRepo;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +13,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    private RoleRepo roleRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -43,5 +48,15 @@ public class UserServiceImpl implements UserService {
     public User addUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepo.save(user);
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return userRepo.findAll();
+    }
+
+    @Override
+    public List<Role> getRoles() {
+        return roleRepo.findAll();
     }
 }
