@@ -26,6 +26,12 @@ public class HomeController {
         return restaurantService.getRestaurants();
     }
 
+    @PostMapping("/registration")
+    User addUser(@RequestBody User user){
+        return userService.addUser(user);
+    }
+
+
     @PostMapping("/addRestaurant")
     Restaurant addRestaurant(@RequestBody Restaurant restaurant){
         return restaurantService.addRestaurant(restaurant);

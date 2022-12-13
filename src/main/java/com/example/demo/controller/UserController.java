@@ -30,10 +30,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/registration")
-    User addUser(@RequestBody User user){
-        return userService.addUser(user);
-    }
 
     @GetMapping("/getRoles")
     List<Role> getRoles(){

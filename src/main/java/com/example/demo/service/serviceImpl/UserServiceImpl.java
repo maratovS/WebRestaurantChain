@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
         return new org.springframework.security.core.userdetails.User(
                 username,
                 user.getPassword(),
-                Collections.singleton(new SimpleGrantedAuthority(user.getRole().toString()))
+                Collections.singleton(new SimpleGrantedAuthority(user.getRole().getRoleName()))
         );
 
     }
@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User addUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(roleRepo.findByRoleName(user.getRole().getRoleName()));
         return userRepo.save(user);
     }
 
