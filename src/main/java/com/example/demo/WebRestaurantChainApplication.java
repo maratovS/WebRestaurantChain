@@ -1,8 +1,7 @@
 package com.example.demo;
 
-import com.example.demo.domain.Restaurant;
-import com.example.demo.domain.Role;
-import com.example.demo.domain.User;
+import com.example.demo.domain.*;
+import com.example.demo.repo.MenuRepository;
 import com.example.demo.repo.RestaurantRepo;
 import com.example.demo.repo.RoleRepo;
 import com.example.demo.repo.UserRepo;
@@ -13,6 +12,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @SpringBootApplication
 public class WebRestaurantChainApplication {
@@ -30,6 +33,7 @@ public class WebRestaurantChainApplication {
 	public CommandLineRunner run(RoleRepo roleRepo,
 								 UserRepo userRepo,
 								 UserService userService,
+								 MenuRepository menuRepository,
 								 RestaurantRepo restaurantRepo
 	) throws Exception{
 		return (String[] args) -> {
@@ -39,21 +43,6 @@ public class WebRestaurantChainApplication {
 				roleRepo.save(new Role(null, "manager"));
 				roleRepo.save(new Role(null, "admin"));
 				roleRepo.save(new Role(null, "deliveryman"));
-			}
-			if (restaurantRepo.findAll().isEmpty()){
-				restaurantRepo.save(new Restaurant(
-						null,
-						"Хокку",
-						"Московское шоссе, 36А",
-						"Японская кухня",
-						"",
-						null,
-						null,
-						null,
-						null,
-						53.212562,
-						50.180840
-				));
 			}
 			if (userRepo.findAll().isEmpty()){
 				userService.addUser(new User(
@@ -80,7 +69,7 @@ public class WebRestaurantChainApplication {
 						null,
 						53.225436,
 						50.263300,
-						restaurantRepo.findByRestaurantName("Хокку"),
+						null,
 						roleRepo.findByRoleName("deliveryman"),
 						true
 				));
@@ -94,7 +83,7 @@ public class WebRestaurantChainApplication {
 						null,
 						53.242037,
 						50.184024,
-						restaurantRepo.findByRestaurantName("Хокку"),
+						null,
 						roleRepo.findByRoleName("manager"),
 						true
 				));
@@ -108,7 +97,7 @@ public class WebRestaurantChainApplication {
 						null,
 						53.242037,
 						50.184024,
-						restaurantRepo.findByRestaurantName("Хокку"),
+						null,
 						roleRepo.findByRoleName("admin"),
 						true
 				));
@@ -122,7 +111,7 @@ public class WebRestaurantChainApplication {
 						null,
 						53.242037,
 						50.184024,
-						restaurantRepo.findByRestaurantName("Хокку"),
+						null,
 						roleRepo.findByRoleName("chef"),
 						true
 				));
@@ -136,13 +125,11 @@ public class WebRestaurantChainApplication {
 						null,
 						53.242037,
 						50.184024,
-						restaurantRepo.findByRestaurantName("Хокку"),
-						roleRepo.findByRoleName("client"),
+						null,
+						roleRepo.findByRoleName("chef"),
 						true
 				));
 			}
 		};
 	}
-
-
 }

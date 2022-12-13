@@ -16,12 +16,9 @@ public class TableInRestaurant {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "restaurant_id")
+    @ManyToOne
     private Restaurant restaurantId;
     private Integer numberOfSeats;
     private boolean isBooked;
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Order> myOrders;
     private Date startOfBookingTime;
 }

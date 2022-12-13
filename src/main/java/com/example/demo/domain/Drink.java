@@ -20,7 +20,4 @@ public class Drink {
     private Double price;
     private Double priceOfBottle;
     private Double volume;
-    @ManyToOne
-    @JoinColumn(name = "menu_id")
-    private Menu menu;
 }

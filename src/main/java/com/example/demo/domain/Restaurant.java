@@ -3,6 +3,7 @@ package com.example.demo.domain;
 import lombok.*;
 import javax.persistence.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,12 +20,12 @@ public class Restaurant {
     private String address;
     private String kitchenSpeciality;
     private String wallpaperURL;
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<User> staff;
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Order> orders;
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<TableInRestaurant> tables;
+    @OneToMany
+    private List<User> staff;
+    @OneToMany
+    private List<Order> orders;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<TableInRestaurant> tables;
     @OneToOne
     private Menu menu;
     private Double latitude;

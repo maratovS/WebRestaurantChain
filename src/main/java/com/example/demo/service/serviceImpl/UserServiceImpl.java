@@ -92,4 +92,9 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(Long id) {
         userRepo.deleteById(id);
     }
+
+    @Override
+    public List<User> getUnemployed() {
+        return userRepo.findAllByPlaceOfWorkAndWorking(null, true);
+    }
 }

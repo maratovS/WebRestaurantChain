@@ -26,8 +26,7 @@ public class User {
     private Set<Order> myOrders;
     private Double latitude;
     private Double longitude;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "restaurant_id")
+    @ManyToOne
     private Restaurant placeOfWork;
     @ManyToOne
     @JoinColumn(name = "role_id")

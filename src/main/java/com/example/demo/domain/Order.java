@@ -16,8 +16,7 @@ public class Order { //todo: add relations
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "restaurant_id")
+    @ManyToOne
     private Restaurant restaurant;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usr_id")

@@ -20,7 +20,4 @@ public class Dish {
     private Double price;
     private Double weight;
     private Double calories;
-    @ManyToOne
-    @JoinColumn(name = "menu_id")
-    private Menu menu;
 }
