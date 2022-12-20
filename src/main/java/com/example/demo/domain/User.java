@@ -25,6 +25,7 @@ public class User implements java.io.Serializable {
     private String password;
     private String address;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     @ToString.Exclude
     private List<Order> myOrders;
     private Double latitude;
