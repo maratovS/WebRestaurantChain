@@ -27,25 +27,22 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getOrders() {
-        List<Order> orders = orderRepo.findAll();
-        orders.forEach(s ->{
-            s.getDishes().forEach(d -> {
-                System.out.println(d.getId().toString() + ' ' + d.getName());
-            });
-            s.getDrinks().forEach(d -> {
-                System.out.println(d.getId().toString() + ' ' + d.getName());
-            });
-        });
-        return orders;
+        return orderRepo.findAll();
+    }
+
+    @Override
+    public Order getOrderById(Long id) {
+        return orderRepo.findById(id).orElse(null);
     }
 
     @Override
     public List<Order> getOrdersOfUser(Long id) {
-        return userRepo.findById(id)
+        User user = userRepo.findById(id)
                 .orElseThrow(() -> {
                     throw new RuntimeException("User not found");
-                })
-                .getMyOrders();
+                });
+        List<Order> orders = user.getMyOrders();
+        return orders;
     }
 
     @Override
@@ -97,6 +94,16 @@ public class OrderServiceImpl implements OrderService {
             System.out.println(s.getId().toString() + ' ' + s.getVolume().toString());
         });
         order.setOrderedTime(new Date(System.currentTimeMillis()));
+        return orderRepo.save(order);
+    }
+
+    @Override
+    public Order changeOrderStatus(Long id) {
+        Order order = orderRepo.findById(id).orElseThrow(() -> {
+            throw new RuntimeException("Order not found");
+        });
+        order.setDone(true);
+
         return orderRepo.save(order);
     }
 }

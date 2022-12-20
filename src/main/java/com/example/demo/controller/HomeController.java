@@ -84,8 +84,28 @@ public class HomeController {
         return orderService.getOrders();
     }
 
+    @GetMapping("/orderById")
+    Order getOrders(@RequestParam Long id){
+        return orderService.getOrderById(id);
+    }
+
+    @GetMapping("/userOrders")
+    List<Order> getUserOrders(@RequestParam Long id){
+        return orderService.getOrdersOfUser(id);
+    }
+
+    @GetMapping("/restaurantOrders")
+    List<Order> getRestaurantOrders(@RequestParam Long id){
+        return orderService.getOrdersOfRestaurant(id);
+    }
+
     @PostMapping(value = "/addOrder",consumes = "application/json")
     Order addOrder(@RequestBody Order order){
         return orderService.addOrder(order);
+    }
+
+    @PostMapping("/changeOrderStatus")
+    Order changeOrderStatus(@RequestParam Long id){
+        return orderService.changeOrderStatus(id);
     }
 }

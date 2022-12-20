@@ -2,9 +2,7 @@ package com.example.demo.service.serviceImpl;
 
 import com.example.demo.domain.Restaurant;
 import com.example.demo.domain.User;
-import com.example.demo.repo.MenuRepository;
-import com.example.demo.repo.RestaurantRepo;
-import com.example.demo.repo.TableInRestaurantRepo;
+import com.example.demo.repo.*;
 import com.example.demo.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +16,10 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Autowired
     private MenuRepository menuRepository;
     @Autowired
+    private DishRepository dishRepository;
+    @Autowired
+    private DrinkRepository drinkRepository;
+    @Autowired
     private TableInRestaurantRepo tableInRestaurantRepo;
 
 
@@ -28,7 +30,11 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public Restaurant getRestaurant(Long id) {
-        return restaurantRepo.findById(id).orElse(null);
+        Restaurant restaurant = restaurantRepo.findById(id).orElse(null);
+        if (restaurant != null){
+
+        }
+        return restaurant;
     }
 
     @Override

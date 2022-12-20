@@ -18,9 +18,9 @@ public class WebConfiguration implements WebMvcConfigurer {
                 .allowedHeaders("*");
     }
 
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(new MappingJackson2HttpMessageConverter());
-        WebMvcConfigurer.super.configureMessageConverters(converters);
-    }
+//    @Override
+//    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+//        converters.add(new MappingJackson2HttpMessageConverter());
+//        WebMvcConfigurer.super.configureMessageConverters(converters);
+//    }
 }

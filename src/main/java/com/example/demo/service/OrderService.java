@@ -11,6 +11,8 @@ public interface OrderService {
     List<Order> getOrdersOfUser(Long id);
     List<Order> getOrdersOfRestaurant(Long id);
     Order addOrder(Order order);
+    Order getOrderById(Long id);
+    Order changeOrderStatus(Long id);
     //todo: feature for edit order
     //todo: feature for delete order
     //todo: feature for change order status

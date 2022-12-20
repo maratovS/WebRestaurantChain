@@ -26,8 +26,9 @@ public class Dish {
     private Double price;
     private Double weight;
     private Double calories;
-    @ManyToMany(mappedBy = "dishes", fetch = FetchType.EAGER)
-    @JsonIgnore
-    @ToString.Exclude
-    List<Order> orders;
+    @ManyToOne
+    @JoinColumn(name = "menu_id")
+    @JsonBackReference(value = "dish-menu")
+    private Menu menu;
+
 }

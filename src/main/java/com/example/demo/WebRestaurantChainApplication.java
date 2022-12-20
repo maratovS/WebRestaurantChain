@@ -33,7 +33,8 @@ public class WebRestaurantChainApplication {
 								 UserService userService,
 								 RestaurantRepo restaurantRepo,
 								 OrderRepo orderRepo,
-								 TableInRestaurantRepo tableInRestaurantRepo
+								 TableInRestaurantRepo tableInRestaurantRepo,
+								 MenuRepository menuRepository
 	) throws Exception{
 		return (String[] args) -> {
 			if (roleRepo.findAll().isEmpty()){
@@ -80,7 +81,7 @@ public class WebRestaurantChainApplication {
 						"Московское шоссе, 36А",
 						"",
 						"Японская кухня",
-						"",
+						"https://grandgames.net/puzzle/f1200/yaponskij_restoran.jpg",
 						null,
 						null,
 						null,
@@ -88,7 +89,7 @@ public class WebRestaurantChainApplication {
 						53.212528,
 						50.180862
 				));
-
+				menu = restaurant.getMenu();
 				List<TableInRestaurant> tables = new ArrayList<>();
 				for (int i = 0; i < 8; i++) {
 					tables.add(new TableInRestaurant(
@@ -187,20 +188,6 @@ public class WebRestaurantChainApplication {
 						restaurantRepo.findByRestaurantName("Хокку"),
 						roleRepo.findByRoleName("chef"),
 						true
-				));
-			}
-			if (orderRepo.findAll().isEmpty()){
-				Restaurant restaurant = restaurantRepo.findByRestaurantName("Хокку");
-				orderRepo.save(new Order(
-						null,
-						restaurant,
-						userRepo.findByTelephone(9093717141L),
-						false,
-						new Date(System.currentTimeMillis()),
-						restaurant.getTables().get(0),
-						false,
-						restaurant.getMenu().getDishes(),
-						restaurant.getMenu().getDrinks()
 				));
 			}
 		};

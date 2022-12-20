@@ -35,11 +35,11 @@ public class Order implements java.io.Serializable {
     @JsonBackReference(value = "seat_number-order")
     private TableInRestaurant seatNumber;
     private boolean isDone;
-    @ManyToMany(cascade = CascadeType.ALL)
-//    @JsonTypeInfo(use = null)
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JsonIgnoreProperties({"menu", "orders"})
     @ToString.Exclude
     private List<Dish> dishes;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @ToString.Exclude
     private List<Drink> drinks;
 }
