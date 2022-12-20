@@ -17,8 +17,10 @@ public class Menu {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     @OneToMany(cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<Dish> dishes;
     @OneToMany(cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<Drink> drinks;
 
 }

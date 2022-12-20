@@ -1,11 +1,9 @@
 package com.example.demo;
 
 import com.example.demo.domain.*;
-import com.example.demo.repo.MenuRepository;
-import com.example.demo.repo.RestaurantRepo;
-import com.example.demo.repo.RoleRepo;
-import com.example.demo.repo.UserRepo;
+import com.example.demo.repo.*;
 import com.example.demo.service.UserService;
+import org.hibernate.internal.util.collections.SingletonIterator;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -33,8 +31,9 @@ public class WebRestaurantChainApplication {
 	public CommandLineRunner run(RoleRepo roleRepo,
 								 UserRepo userRepo,
 								 UserService userService,
-								 MenuRepository menuRepository,
-								 RestaurantRepo restaurantRepo
+								 RestaurantRepo restaurantRepo,
+								 OrderRepo orderRepo,
+								 TableInRestaurantRepo tableInRestaurantRepo
 	) throws Exception{
 		return (String[] args) -> {
 			if (roleRepo.findAll().isEmpty()){
@@ -43,6 +42,66 @@ public class WebRestaurantChainApplication {
 				roleRepo.save(new Role(null, "manager"));
 				roleRepo.save(new Role(null, "admin"));
 				roleRepo.save(new Role(null, "deliveryman"));
+			}
+			if (restaurantRepo.findAll().isEmpty()){
+				List<Dish> dishes = new ArrayList<>();
+				dishes.add(new Dish(
+						null,
+						"Рамен",
+						"Лапша",
+						"Любимая еда нашего любимого героя детства",
+						101.00,
+						100.0,
+						400.0,
+						null
+				));
+				List<Drink> drinks = new ArrayList<>();
+				drinks.add(new Drink(
+						null,
+						"Вода",
+						"Напиток безалкогольный",
+						"Вода.",
+						101.00,
+						100.0,
+						400.0,
+						null
+				));
+
+
+				Menu menu = new Menu(
+						null,
+						dishes,
+						drinks
+				);
+
+				Restaurant restaurant = restaurantRepo.save(new Restaurant(
+						null,
+						"Хокку",
+						"Московское шоссе, 36А",
+						"",
+						"Японская кухня",
+						"",
+						null,
+						null,
+						null,
+						menu,
+						53.212528,
+						50.180862
+				));
+
+				List<TableInRestaurant> tables = new ArrayList<>();
+				for (int i = 0; i < 8; i++) {
+					tables.add(new TableInRestaurant(
+							null,
+							restaurant,
+							null,
+							3,
+							false,
+							null
+					));
+				}
+				restaurant.setTables(tables);
+				restaurantRepo.save(restaurant);
 			}
 			if (userRepo.findAll().isEmpty()){
 				userService.addUser(new User(
@@ -69,7 +128,7 @@ public class WebRestaurantChainApplication {
 						null,
 						53.225436,
 						50.263300,
-						null,
+						restaurantRepo.findByRestaurantName("Хокку"),
 						roleRepo.findByRoleName("deliveryman"),
 						true
 				));
@@ -83,7 +142,7 @@ public class WebRestaurantChainApplication {
 						null,
 						53.242037,
 						50.184024,
-						null,
+						restaurantRepo.findByRestaurantName("Хокку"),
 						roleRepo.findByRoleName("manager"),
 						true
 				));
@@ -97,7 +156,7 @@ public class WebRestaurantChainApplication {
 						null,
 						53.242037,
 						50.184024,
-						null,
+						restaurantRepo.findByRestaurantName("Хокку"),
 						roleRepo.findByRoleName("admin"),
 						true
 				));
@@ -125,9 +184,23 @@ public class WebRestaurantChainApplication {
 						null,
 						53.242037,
 						50.184024,
-						null,
+						restaurantRepo.findByRestaurantName("Хокку"),
 						roleRepo.findByRoleName("chef"),
 						true
+				));
+			}
+			if (orderRepo.findAll().isEmpty()){
+				Restaurant restaurant = restaurantRepo.findByRestaurantName("Хокку");
+				orderRepo.save(new Order(
+						null,
+						restaurant,
+						userRepo.findByTelephone(9093717141L),
+						false,
+						new Date(System.currentTimeMillis()),
+						restaurant.getTables().get(0),
+						false,
+						restaurant.getMenu().getDishes(),
+						restaurant.getMenu().getDrinks()
 				));
 			}
 		};

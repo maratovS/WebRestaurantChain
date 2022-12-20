@@ -4,6 +4,7 @@ import com.example.demo.domain.*;
 import com.example.demo.repo.RestaurantRepo;
 import com.example.demo.repo.UserRepo;
 import com.example.demo.service.MenuService;
+import com.example.demo.service.OrderService;
 import com.example.demo.service.RestaurantService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class HomeController {
     private UserService userService;
     @Autowired
     private MenuService menuService;
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/restaurants")
     List<Restaurant> index(){
@@ -30,7 +33,6 @@ public class HomeController {
     User addUser(@RequestBody User user){
         return userService.addUser(user);
     }
-
 
     @PostMapping("/addRestaurant")
     Restaurant addRestaurant(@RequestBody Restaurant restaurant){
@@ -71,8 +73,19 @@ public class HomeController {
     Restaurant addDish(@RequestParam Long id, @RequestBody Dish dish){
         return menuService.addDishToMenu(id, dish);
     }
+
     @PostMapping("/addDrink")
     Restaurant addDrink(@RequestParam Long id, @RequestBody Drink drink){
         return menuService.addDrinkToMenu(id, drink);
+    }
+
+    @GetMapping("/orders")
+    List<Order> getOrders(){
+        return orderService.getOrders();
+    }
+
+    @PostMapping(value = "/addOrder",consumes = "application/json")
+    Order addOrder(@RequestBody Order order){
+        return orderService.addOrder(order);
     }
 }

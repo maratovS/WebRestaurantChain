@@ -1,9 +1,13 @@
 package com.example.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "usr")
@@ -12,7 +16,8 @@ import java.util.Set;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+public class User implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
@@ -22,11 +27,13 @@ public class User {
     private long telephone;
     private String password;
     private String address;
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Order> myOrders;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Order> myOrders;
     private Double latitude;
     private Double longitude;
     @ManyToOne
+    @JoinColumn(name = "place_of_work_id")
+    @JsonBackReference(value = "placeOfWork")
     private Restaurant placeOfWork;
     @ManyToOne
     @JoinColumn(name = "role_id")
